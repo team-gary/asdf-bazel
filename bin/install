@@ -70,6 +70,8 @@ install () {
 
   check_install_type "${install_type}"
 
+  echo "${installer_url}"
+
   curl -sSL "${installer_url}" -o "${installer_path}"
   chmod u+x "${installer_path}"
 
