@@ -49,8 +49,9 @@ get_installer_url() {
 }
 
 get_tmpdir () {
+  local platform="$1"
   local tempdir=""
-  if [ "linux" = "$1" ] ; then
+  if [ "linux" = "${platform}" ] ; then
     tempdir=$(mktemp -d asdf-bazel.XXXX)
   else
     tempdir=$(mktemp -dt asdf-bazel.XXXX)
@@ -72,7 +73,8 @@ install () {
 
   echo "${installer_url}"
   echo "${installer_path}"
-  
+  echo "${tmpdir}"
+
   (
     curl -sL "${installer_url}" -o "${installer_path}"
     chmod u+x "${installer_path}"
