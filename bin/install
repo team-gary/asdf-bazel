@@ -48,7 +48,6 @@ get_installer_url() {
   echo "$url_base/$version/$installer_name"
 }
 
-
 get_tmpdir () {
   local tempdir=""
   if [ "linux" = "$1" ] ; then
@@ -71,7 +70,7 @@ install () {
 
   check_install_type "${install_type}"
 
-  curl -L -s -o "${installer_path}" "${installer_url}"
+  curl -sSL "${installer_url}" -o "${installer_path}"
   chmod u+x "${installer_path}"
 
   "${installer_path}" --prefix="${install_path}"
