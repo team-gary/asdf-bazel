@@ -36,13 +36,14 @@ get_platform () {
 
 get_installer_name() {
   local version="$1"
-  local platform="$(get_platform)"
+  local platform="$2"
   echo "bazel-$version-installer-$platform-x86_64.sh"
 }
 
 get_installer_url() {
   local version="$1"
-  local installer_name="$(get_installer_name $version)"
+  local platform="$2"
+  local installer_name="$(get_installer_name $version $platform)"
   local url_base="https://github.com/bazelbuild/bazel/releases/download"
   echo "$url_base/$version/$installer_name"
 }
@@ -62,10 +63,11 @@ install () {
   local install_type="$1"
   local version="$2"
   local install_path="$3"
+  local platform=$(get_platform)
   local tempdir=$(get_tmpdir $platform)
-  local installer_name="$(get_installer_name $version)"
+  local installer_name="$(get_installer_name $version $platform)"
   local installer_path="${tmpdir}/${installer_name}"
-  local installer_url="$(get_installer_url $version)"
+  local installer_url="$(get_installer_url $version $platform)"
 
   check_install_type "${install_type}"
 
